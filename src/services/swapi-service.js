@@ -30,32 +30,32 @@ export default class SwapiService {
 
   async getAllPeople() {
     const res = await this.getResource(`/people/`);
-    return res.results.map(this._transformPerson);
+    return await Promise.all(res.results.map(this._transformPerson));
   };
 
   async getPerson(id) {
     const person = await this.getResource(`/people/${id}/`);
-    return this._transformPerson(person);
+    return await this._transformPerson(person);
   };
 
   async getAllPlanets() {
     const res = await this.getResource(`/planets/`);
-    return res.results.map(this._transformPlanet);
+    return await Promise.all(res.results.map(this._transformPlanet));
   };
 
   async getPlanet(id) {
     const planet = await this.getResource(`/planets/${id}/`);
-    return this._transformPlanet(planet)
+    return await this._transformPlanet(planet)
   };
 
   async getAllStarships() {
     const res = await this.getResource(`/starships/`);
-    return res.results.map(this._transformStarship);
+    return await Promise.all(res.results.map(this._transformStarship));
   };
 
   async getStarship(id) {
     const starship = await this.getResource(`/starships/${id}/`);
-    return this._transformStarship(starship);
+    return await this._transformStarship(starship);
   };
 
   _extractId(item) {
@@ -63,10 +63,10 @@ export default class SwapiService {
     return item.url.match(idRegExp)[1];
   };
 
-  _transformPlanet(planet) {
+  _transformPlanet = async (planet) => {
     const id = this._extractId(planet);
 
-    return this.checkImage(id, "planets")
+    return await this.checkImage(id, "planets")
       .then((imageUrl) => {
         return {
           id,
@@ -79,10 +79,10 @@ export default class SwapiService {
       });
   };
 
-  _transformPerson(person) {
+  _transformPerson = async (person) => {
     const id = this._extractId(person);
 
-    return this.checkImage(id, "characters")
+    return await this.checkImage(id, "characters")
       .then((imageUrl) => {
         return {
           id,
@@ -95,10 +95,10 @@ export default class SwapiService {
       });
   };
 
-  _transformStarship(starship) {
+  _transformStarship = async (starship) => {
     const id = this._extractId(starship);
 
-    return this.checkImage(id, "starships")
+    return await this.checkImage(id, "starships")
       .then((imageUrl) => {
         return {
           id,
