@@ -39,7 +39,11 @@ export default class ItemList extends Component {
     const {peopleList} = this.state;
 
     if (!peopleList) {
-      return <Spinner/>;
+      return (
+        <div className="item-list-spinner card">
+          <Spinner/>
+        </div>
+      );
     }
 
     const items = this.renderItems(peopleList);
