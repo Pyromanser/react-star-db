@@ -14,4 +14,4 @@ const ErrorIndicator = () => {
   );
 };
 
-export default ErrorIndicator
+export default ErrorIndicator;

@@ -4,10 +4,10 @@ import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ItemList from '../item-list';
 import PersonDetails from '../person-details';
-
-import './app.css';
 import ErrorButton from "../error-button";
 import ErrorIndicator from "../error-indicator";
+
+import './app.css';
 
 export default class App extends Component {
 
@@ -15,13 +15,13 @@ export default class App extends Component {
     showRandomPlanet: true,
     hasError: false,
     selectedPerson: null
-  }
+  };
 
   toggleRandomPlanet = () => {
     this.setState((state) => {
       return {
         showRandomPlanet: !state.showRandomPlanet
-      }
+      };
     });
   };
 
@@ -32,9 +32,8 @@ export default class App extends Component {
   };
 
   componentDidCatch(error, errorInfo) {
-    console.log("err");
-    this.setState({hasError: true})
-  }
+    this.setState({hasError: true});
+  };
 
   render() {
 

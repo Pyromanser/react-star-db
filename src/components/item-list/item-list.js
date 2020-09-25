@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 
-import './item-list.css';
 import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner";
+
+import './item-list.css';
 
 export default class ItemList extends Component {
 
@@ -10,7 +11,7 @@ export default class ItemList extends Component {
 
   state = {
     peopleList: null
-  }
+  };
 
   componentDidMount() {
     this.swapiService
@@ -19,8 +20,8 @@ export default class ItemList extends Component {
         this.setState({
           peopleList
         })
-      })
-  }
+      });
+  };
 
   renderItems(arr) {
     return arr.map(({id, name}) => {
@@ -53,5 +54,5 @@ export default class ItemList extends Component {
         {items}
       </ul>
     );
-  }
-}
+  };
+};

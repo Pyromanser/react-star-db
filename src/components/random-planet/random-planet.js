@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 
 import SwapiService from "../../services/swapi-service";
 import ErrorIndicator from "../error-indicator";
+import Spinner from "../spinner";
 
 import './random-planet.css';
-import Spinner from "../spinner";
 
 export default class RandomPlanet extends Component {
 
@@ -56,7 +56,7 @@ export default class RandomPlanet extends Component {
 
     const errorMessage = error ? <ErrorIndicator/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = hasData ? <PlanetView planet={planet}/> : null
+    const content = hasData ? <PlanetView planet={planet}/> : null;
 
     return (
       <div className="random-planet jumbotron rounded">
