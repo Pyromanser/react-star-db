@@ -1,57 +1,52 @@
 import React, {Component} from 'react';
 
+import SwapiService from "../../services/swapi-service";
+
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-import PeoplePage from "../people-page";
-import ErrorButton from "../error-button";
-import ErrorIndicator from "../error-indicator";
+import ErrorBoundary from "../error-boundary";
+
+import {SwapiServiceProvider} from '../swapi-service-context';
+
+import {
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+  PersonList,
+  PlanetList,
+  StarshipList
+} from '../sw-components';
 
 import './app.css';
 
 export default class App extends Component {
 
-  state = {
-    showRandomPlanet: true,
-    hasError: false,
-  };
-
-  toggleRandomPlanet = () => {
-    this.setState((state) => {
-      return {
-        showRandomPlanet: !state.showRandomPlanet
-      };
-    });
-  };
-
-  componentDidCatch(error, errorInfo) {
-    this.setState({hasError: true});
-  };
+  swapiService = new SwapiService();
 
   render() {
 
-    if (this.state.hasError) {
-      return <ErrorIndicator/>;
-    }
-
-    const randomPlanet = this.state.showRandomPlanet ? <RandomPlanet/> : null;
-
     return (
-      <div className="stardb-app container">
-        <Header/>
-        {randomPlanet}
+      <ErrorBoundary>
+        <SwapiServiceProvider value={this.swapiService}>
+          <div className="stardb-app container">
+            <Header/>
+            <RandomPlanet/>
 
-        <div className="row mb2 button-row">
-          <button
-            className="toggle-planet btn btn-warning btn-lg"
-            onClick={this.toggleRandomPlanet}>
-            Toggle Random Planet
-          </button>
-          <ErrorButton/>
-        </div>
+            <PersonDetails itemId={11}/>
 
-        <PeoplePage/>
+            <PlanetDetails itemId={5}/>
 
-      </div>
+            <StarshipDetails itemId={9}/>
+
+            <PersonList/>
+
+            <StarshipList/>
+
+            <PlanetList/>
+
+          </div>
+        </SwapiServiceProvider>
+      </ErrorBoundary>
     );
   };
 };
