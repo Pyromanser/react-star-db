@@ -11,8 +11,6 @@ import './app.css';
 
 export default class App extends Component {
 
-  swapiService = new SwapiService();
-
   state = {
     showRandomPlanet: true,
     hasError: false,

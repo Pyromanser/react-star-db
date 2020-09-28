@@ -4,6 +4,7 @@ import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
 import ErrorButton from "../error-button";
+import ErrorBoundary from "../error-boundary";
 
 import './person-details.css';
 
@@ -93,7 +94,7 @@ const PersonView = ({person}) => {
   const {imageUrl, name, gender, birthYear, eyeColor} = person;
 
   return (
-    <React.Fragment>
+    <ErrorBoundary>
       <img className="person-image"
            src={imageUrl}
            alt={name}/>
@@ -116,6 +117,6 @@ const PersonView = ({person}) => {
         </ul>
         <ErrorButton/>
       </div>
-    </React.Fragment>
+    </ErrorBoundary>
   );
 };

@@ -4,7 +4,6 @@ import SwapiService from "../../services/swapi-service";
 import ItemList from "../item-list";
 import PersonDetails from "../person-details";
 import Row from '../row';
-import ErrorIndicator from "../error-indicator";
 
 import "./people-page.css";
 
@@ -14,13 +13,6 @@ export default class PeoplePage extends Component {
 
   state = {
     selectedPerson: null,
-    hasError: null
-  };
-
-  componentDidCatch(error, errorInfo) {
-    this.setState({
-      hasError: true
-    });
   };
 
   onPersonSelected = (selectedPerson) => {
@@ -30,11 +22,6 @@ export default class PeoplePage extends Component {
   };
 
   render() {
-
-    if (this.state.hasError) {
-      return <ErrorIndicator/>;
-    }
-
     const itemList = (
       <ItemList
         onItemSelected={this.onPersonSelected}
