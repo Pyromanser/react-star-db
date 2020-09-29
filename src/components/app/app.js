@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import SwapiService from "../../services/swapi-service";
+import DummySwapiService from "../../services/dummy-swapi-service";
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
@@ -21,15 +22,26 @@ import './app.css';
 
 export default class App extends Component {
 
-  swapiService = new SwapiService();
+  state = {
+    swapiService: new DummySwapiService()
+  };
+
+  onServiceChange = () => {
+    this.setState(({swapiService}) => {
+      const Service = swapiService instanceof SwapiService ? DummySwapiService : SwapiService;
+      return {
+        swapiService: new Service()
+      };
+    });
+  };
 
   render() {
 
     return (
       <ErrorBoundary>
-        <SwapiServiceProvider value={this.swapiService}>
+        <SwapiServiceProvider value={this.state.swapiService}>
           <div className="stardb-app container">
-            <Header/>
+            <Header onServiceChange={this.onServiceChange}/>
             <RandomPlanet/>
 
             <PersonDetails itemId={11}/>
